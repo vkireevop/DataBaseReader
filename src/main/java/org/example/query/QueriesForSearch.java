@@ -1,12 +1,13 @@
-package org.example;
+package org.example.query;
 
+import org.example.DatabaseConnector;
 import org.example.model.Buyer;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Queries {
+public class QueriesForSearch {
     public static List<Buyer> getBuyersByLastname(String lastName) throws SQLException {
         List<Buyer> resultList = new ArrayList<>();
         DatabaseConnector connector = new DatabaseConnector();

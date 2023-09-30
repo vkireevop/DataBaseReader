@@ -13,6 +13,14 @@ public class Buyer {
         return first_name;
     }
 
+    @Override
+    public String toString() {
+        return "Buyer{" +
+                "first_name='" + first_name + '\'' +
+                ", last_name='" + last_name + '\'' +
+                '}';
+    }
+
     public void setFirst_name(String first_name) {
         this.first_name = first_name;
     }
