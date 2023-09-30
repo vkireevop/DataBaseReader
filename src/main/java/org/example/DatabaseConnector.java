@@ -5,8 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnector {
-    final String url = "jdbc:postgresql://localhost:5432/BuyerBase";
-    final String username = "postgres";
+    final static String url = "jdbc:postgresql://localhost:5432/BuyerBase";
+    final static String username = "postgres";
     final String password = "root";
     private Connection connection;
 
