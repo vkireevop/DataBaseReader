@@ -1,8 +1,0 @@
-{
-  "criterias": [
-    {"last_name": "Doe"},
-    {"productName": "Phone", "minTimes": 1},
-    {"minExpenses": 112, "maxExpenses": 4000},
-    {"badCustomers": 1}
-  ]
-}

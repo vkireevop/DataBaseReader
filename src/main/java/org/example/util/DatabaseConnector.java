@@ -1,4 +1,4 @@
-package org.example;
+package org.example.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class DatabaseConnector {
     final static String url = "jdbc:postgresql://localhost:5432/BuyerBase";
     final static String username = "postgres";
-    final String password = "root";
+    final static String password = "root";
     private Connection connection;
 
     public DatabaseConnector() {

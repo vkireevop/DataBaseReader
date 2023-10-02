@@ -1,14 +1,16 @@
 package org.example.query;
 
-import org.example.DatabaseConnector;
+import org.example.util.DatabaseConnector;
 import org.example.model.Buyer;
+import org.example.util.ExceptionWritter;
 
+import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class QueriesForSearch {
-    public static List<Buyer> getBuyersByLastname(String lastName) throws SQLException {
+    public static List<Buyer> getBuyersByLastname(String lastName)  {
         List<Buyer> resultList = new ArrayList<>();
         DatabaseConnector connector = new DatabaseConnector();
         String query = "SELECT * FROM Buyers WHERE last_name = ?";
@@ -18,11 +20,19 @@ public class QueriesForSearch {
                 while (resultSet.next()) {
                     resultList.add(new Buyer(resultSet.getString("first_name"),lastName));
                 }
+            } catch (SQLException e) {
+                ExceptionWritter.sendException(new File("failReport"), e.getClass().getTypeName(),
+                        e.getLocalizedMessage());
+                System.exit(1);
             }
+        } catch (SQLException e) {
+            ExceptionWritter.sendException(new File("failReport"), e.getClass().getTypeName(),
+                    e.getLocalizedMessage());
+            System.exit(1);
         }
         return resultList;
     }
-    public static List<Buyer> findBuyersByProductPurchaseCount( String productName, int count) throws SQLException {
+    public static List<Buyer> findBuyersByProductPurchaseCount( String productName, int count) {
         String query = "SELECT Buyers.first_name, Buyers.last_name " +
                 "FROM Buyers " +
                 "JOIN Purchases ON Buyers.id = Purchases.buyer_id " +
@@ -41,10 +51,14 @@ public class QueriesForSearch {
                             resultSet.getString("last_name")));
                 }
             }
+        } catch (SQLException e) {
+            ExceptionWritter.sendException(new File("failReport"), e.getClass().getTypeName(),
+                    e.getLocalizedMessage());
+            System.exit(1);
         }
         return resultList;
     }
-    public static List<Buyer> findBuyersByTotalCostRange(double minCost, double maxCost) throws SQLException {
+    public static List<Buyer> findBuyersByTotalCostRange(double minCost, double maxCost) {
         String query = "SELECT Buyers.first_name, Buyers.last_name, SUM(Products.price) as total_cost " +
                 "FROM Buyers " +
                 "JOIN Purchases ON Buyers.id = Purchases.buyer_id " +
@@ -62,10 +76,14 @@ public class QueriesForSearch {
                             ("last_name")));
                 }
             }
+        } catch (SQLException e) {
+            ExceptionWritter.sendException(new File("failReport"), e.getClass().getTypeName(),
+                    e.getLocalizedMessage());
+            System.exit(1);
         }
         return resultList;
     }
-    public static List<Buyer> findInactiveBuyers( int limit) throws SQLException {
+    public static List<Buyer> findInactiveBuyers( int limit) {
         String query = "SELECT Buyers.first_name, Buyers.last_name, COUNT(*) as purchase_count " +
                 "FROM Buyers " +
                 "JOIN Purchases ON Buyers.id = Purchases.buyer_id " +
@@ -81,6 +99,10 @@ public class QueriesForSearch {
                     resultList.add(new Buyer(resultSet.getString("first_name"),resultSet.getString("last_name")));
                 }
             }
+        } catch (SQLException e) {
+            ExceptionWritter.sendException(new File("failReport"), e.getClass().getTypeName(),
+                    e.getLocalizedMessage());
+            System.exit(1);
         }
         return resultList;
     }
